@@ -64,92 +64,60 @@ export default {
   /*
    ** Global CSS
    */
-  css: ['@/assets/css/main.pcss'],
-  /*
-   ** Plugins to load before mounting the App
-   */
-  plugins: ['~/plugins/vue-content-placeholders.js'],
-  /*
-   ** Nuxt.js dev-modules
-   */
-  buildModules: ['@nuxtjs/color-mode', '@nuxtjs/tailwindcss', '@nuxtjs/svg', '@nuxtjs/pwa'],
-  /*
-   ** Nuxt.js modules
-   */
-  modules: ['@nuxt/content', 'nuxt-purgecss'],
-  /*
-   ** Build configuration
-   */
-  build: {
-    extractCSS: true,
-    postcss: {
-      plugins: {
-        'postcss-preset-env': postcssPresetEnv({
-          stage: 1,
-          features: {
-            'nesting-rules': false
-          }
-        }),
-        'postcss-easing-gradients': postcssEasingGradients
-      }
-    },
-    /*
-     ** You can extend webpack config here
-     */
-    extend(config, ctx) {}
+
+  target: 'static',
+
+  // Global CSS (https://go.nuxtjs.dev/config-css)
+  css: ['~assets/scss/colors.scss'],
+
+  // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
+  plugins: ['~/plugins/v-img.js'],
+  // Auto import components (https://go.nuxtjs.dev/config-components)
+  components: true,
+
+  // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
+  buildModules: ['@aceforth/nuxt-optimized-images', '@nuxtjs/pwa'],
+
+  optimizedImages: {
+    optimizeImages: true
   },
-  /*
-   ** Custom additions configuration
-   */
-  // ? The content property: https://content.nuxtjs.org/configuration
+
+  publicRuntimeConfig: {
+    baseURL: process.env.BASE_URL || url
+  },
+
+  generate: {
+    fallback: true
+  },
+
+  image: {
+    // Options
+  },
+
+  // Modules (https://go.nuxtjs.dev/config-modules)
+  modules: ['@nuxtjs/bulma', '@nuxt/content', '@nuxt/image', '@nuxtjs/style-resources'],
+
   content: {
-    dir: 'content'
-  },
-  tailwindcss: {
-    viewer: false, // disabled because it causes `Error: Cannot find module 'tailwindcss/resolveConfig'`, fixed in https://github.com/nuxt-community/tailwindcss-module/pull/303
-    cssPath: '~/assets/css/main.pcss',
-    exposeConfig: false // enables `import { theme } from '~tailwind.config'`
-  },
-  purgeCSS: {
-    mode: 'postcss',
-    // ? Safelisting docs: https://purgecss.com/safelisting.html
-    safelist: {
-      // standard: [],
-      deep: [/dark/, /light/, /btn/, /icon/, /main/],
-      greedy: [
-        /^card/,
-        /image$/,
-        /title$/,
-        /^nuxt-content/,
-        /code/,
-        /pre/,
-        /token/,
-        /^vue-content-placeholders/
-      ]
-    }
-  },
-  colorMode: {
-    classSuffix: '',
-    preference: 'system', // default value of $colorMode.preference
-    fallback: COLOR_MODE_FALLBACK, // fallback value if not system preference found
-    componentName: 'ColorScheme',
-    cookie: {
-      options: {
-        sameSite: 'lax'
+    markdown: {
+      prism: {
+        // https://github.com/PrismJS/prism-themes
+        theme: 'prism-themes/themes/prism-atom-dark.css'
       }
     }
   },
-  pwa: {
-    icon: {
-      source: 'static/icon.png',
-      filename: 'icon.png'
-    },
-    manifest: { name: SITE_INFO.sitename || process.env.npm_package_name || '', lang: process.env.lang },
-    meta: {
-      name: SITE_INFO.sitename || process.env.npm_package_name || '',
-      lang: process.env.lang,
-      ogHost: process.env.URL,
-      ogImage: '/preview.jpg'
+
+  styleResources: {
+    scss: ['./assets/scss/*.scss']
+  },
+
+  // Build Configuration (https://go.nuxtjs.dev/config-build)
+  build: {
+    postcss: {
+      preset: {
+        features: {
+          customProperties: false
+        }
+      }
     }
   }
-}
+};
