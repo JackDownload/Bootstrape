@@ -61,40 +61,27 @@ export default {
    ** Customize the progress-bar color
    */
   loading: { color: '#526488' },
-  /*
-   ** Global CSS
-   */
-
-  target: 'static',
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: ['~assets/scss/colors.scss'],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: ['~/plugins/v-img.js'],
-  // Auto import components (https://go.nuxtjs.dev/config-components)
-  components: true,
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: ['@aceforth/nuxt-optimized-images', '@nuxtjs/pwa'],
-
+  /*
+   ** Nuxt.js modules
+   */
   optimizedImages: {
     optimizeImages: true
   },
 
-  publicRuntimeConfig: {
-    baseURL: process.env.BASE_URL || url
-  },
-
-  generate: {
-    fallback: true
-  },
 
   image: {
     // Options
   },
 
-  // Modules (https://go.nuxtjs.dev/config-modules)
   modules: ['@nuxtjs/bulma', '@nuxt/content', '@nuxt/image', '@nuxtjs/style-resources'],
 
   content: {
@@ -120,4 +107,17 @@ export default {
       }
     }
   }
-};
+  pwa: {
+    icon: {
+      source: 'static/icon.png',
+      filename: 'icon.png'
+    },
+    manifest: { name: SITE_INFO.sitename || process.env.npm_package_name || '', lang: process.env.lang },
+    meta: {
+      name: SITE_INFO.sitename || process.env.npm_package_name || '',
+      lang: process.env.lang,
+      ogHost: process.env.URL,
+      ogImage: '/preview.jpg'
+    }
+  }
+}

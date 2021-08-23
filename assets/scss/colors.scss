@@ -1,0 +1,80 @@
+/* Import Bulma Utilities */
+@import '~bulma/sass/utilities/initial-variables';
+@import '~bulma/sass/utilities/functions';
+
+// Define bases
+$black: rgb(15,15,15);
+$black-off: rgb(30,30,30);
+$white: rgb(255,255,255);
+$white-off: rgb(245,245,245);
+
+//// DARK MODE ////
+$primary: $black; // Primary colors
+$primary-off: $black-off; // A slightly muted version of primary
+$text: $white-off; // Applies to body text
+$text-strong: $white; // Applies to titles; text bolded with <strong>
+
+// // LIGHT MODE ////
+// $primary: $white; // Primary colors
+// $primary-off: $white-off; // A slightly muted version of primary
+// $text: $black-off; // Applies to body text
+// $text-strong: $black; // Applies to titles; text bolded with <strong>
+
+// Semitransparent helper
+$semitransparent: #cecece10;
+
+// Secondary colors
+$secondary: rgb(46, 201, 151);
+$secondary-bg: rgba($secondary, .1);
+
+// Inverts for text etc.
+$primary-invert: invert($primary);
+$secondary-invert: invert($secondary);
+
+// Resolve Prism/Bulma conflicts
+// https://www.darraghoriordan.com/2019/01/20/bulma-prismjs-in-gatsby-css-conflicts/
+.token.tag,
+.token.content,
+.token.number {
+  display: inline;
+  padding: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  text-align: inherit;
+  vertical-align: inherit;
+  border-radius: inherit;
+  font-weight: inherit;
+  white-space: inherit;
+  background: inherit;
+  margin: inherit;
+}
+
+// Default prismJS comment highlighting doesn't pass accessibility checks (contrast is 2.7)
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdat {
+  color: #3d9970;
+}
+
+// Better code formatting
+// Code formatting for chunks
+pre[class*="language-"] {
+  background: $black;
+}
+
+// Inline code chunks
+:not(pre)>code {
+  background: $secondary-bg !important;
+  color: $secondary !important;
+  padding: 6px 4px;
+  border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+}
+
+/* Import the rest of Bulma */
+@import '~bulma';
+
