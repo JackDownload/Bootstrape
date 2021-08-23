@@ -106,7 +106,8 @@ export default {
         }
       }
     }
-  }
+  },
+
   pwa: {
     icon: {
       source: 'static/icon.png',
